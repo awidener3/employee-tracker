@@ -45,7 +45,44 @@ INSERT INTO employee(first_name, last_name, role_id, manager_id)
 VALUES
 	('first', 'last', 1, NULL)
 
--- UPDATE employee
+-- UPDATE employee role
 -- prompt select employeee to update and their new role, info updated in db
 UPDATE employee SET role_id=1 WHERE id=1
 
+-- UPDATE employee manager
+UPDATE employee SET manager_id=1 WHERE id=5
+
+-- READ employees by manager
+SELECT CONCAT(a.first_name, ' ', a.last_name) AS employee, CONCAT(b.first_name, ' ', b.last_name) AS manager
+FROM employee a
+JOIN employee b 
+ON a.manager_id=b.id
+ORDER BY b.id
+
+-- READ employees by department
+SELECT CONCAT(employee.first_name, ' ', employee.last_name) AS employee, department.name AS department
+FROM employee
+JOIN role
+ON employee.role_id=role.id 
+JOIN department
+ON role.department_id=department.id 
+ORDER BY department.id
+
+-- DELETE department 
+DELETE FROM department WHERE id = ?
+
+-- DELETE role 
+DELETE FROM role WHERE id = ?
+
+-- DELETE employee 
+DELETE FROM employee WHERE id = ?
+
+-- view total utilized budget by department
+SELECT SUM(role.salary) AS `total utilized budget`, department.name AS department
+FROM employee
+JOIN role
+ON employee.role_id=role.id 
+JOIN department
+ON role.department_id=department.id 
+WHERE department.id=?
+GROUP BY department.id
