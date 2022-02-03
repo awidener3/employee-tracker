@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
-const mysql = require('mysql2');
 const cTable = require('console.table');
 const db = require('./db/query.js');
 
+// menu for selecting application actions
 menu = () => {
 	inquirer
 		.prompt([
@@ -26,6 +26,7 @@ menu = () => {
 		.catch((error) => console.log(error));
 };
 
+// handles response from menu and delivers questions based on response
 handleMenu = (response) => {
 	switch (response.choice) {
 		// * READ employees
@@ -81,14 +82,14 @@ handleMenu = (response) => {
 										type: 'list',
 										name: 'role',
 										message: "What is the employee's role?",
-										choices: roleChoices, // TODO: add dynamically created list of roles
+										choices: roleChoices,
 									},
 									{
 										type: 'list',
 										name: 'manager',
 										message:
 											"Who is the employee's manager?",
-										choices: employeeChoices, // TODO: add dynamically created list of managers
+										choices: employeeChoices,
 									},
 								])
 								.then((response) => {
@@ -108,7 +109,7 @@ handleMenu = (response) => {
 
 			break;
 
-		// TODO: UPDATE employee role
+		// * UPDATE employee role
 		case 'Update Employee Role':
 			db.readRoles()
 				.then(([rows]) => {
@@ -137,13 +138,13 @@ handleMenu = (response) => {
 										type: 'list',
 										name: 'employee',
 										message: 'Select an employee to update',
-										choices: employeeChoices, // TODO: add dynamic list of employees
+										choices: employeeChoices,
 									},
 									{
 										type: 'list',
 										name: 'role',
 										message: 'Select a role',
-										choices: roleChoices, //TODO: add dynamic list of roles
+										choices: roleChoices,
 									},
 								])
 								.then((response) => {
@@ -151,9 +152,7 @@ handleMenu = (response) => {
 										response.role,
 										response.employee
 									);
-									console.log(
-										`successfully updated ${response.employee}`
-									);
+									console.log(`successfully updated role!`);
 								})
 								.then(() => menu());
 						});
