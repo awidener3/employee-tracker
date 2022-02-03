@@ -13,17 +13,19 @@ ORDER BY role.id
 
 -- READ all employees
 SELECT 
-		employee.id, 
-		employee.first_name, 
-		employee.last_name, 
+		a.id, 
+		a.first_name, 
+		a.last_name, 
 		role.title, 
 		department.name,
-		employee.manager_id 
-FROM 	employee
+		CONCAT(b.first_name, ' ', b.last_name) AS manager
+FROM 	employee a
 JOIN 	role
-ON 		employee.role_id=role.id
+ON 		a.role_id=role.id
 JOIN	department
 ON 		department.id=role.department_id
+LEFT JOIN    employee b
+ON      a.manager_id = b.id
 
 -- CREATE department
 -- prompt to enter name of department, department added to db
