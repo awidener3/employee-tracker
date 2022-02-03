@@ -110,30 +110,54 @@ handleMenu = (response) => {
 
 		// TODO: UPDATE employee role
 		case 'Update Employee Role':
-			let role = inquirer.prompt([
-				{
-					type: 'list',
-					name: 'employee',
-					message: 'Select an employee to update',
-					choices: [], // TODO: add dynamic list of employees
-				},
-				{
-					type: 'list',
-					name: 'role',
-					message: 'Select a role',
-					choices: [], //TODO: add dynamic list of roles
-				},
-			]);
+			db.readRoles()
+				.then(([rows]) => {
+					const roleChoices = rows.map(({ id, title }) => ({
+						name: title,
+						value: id,
+					}));
 
-			db.query(
-				'UPDATE employee SET role_id=? WHERE id=?',
-				['', ''],
-				(err, result) => {
-					if (err) console.log(err);
-					console.log(results);
-					menu();
-				}
-			);
+					return roleChoices;
+				})
+				.then((roleChoices) => {
+					db.readEmployees()
+						.then(([rows]) => {
+							const employeeChoices = rows.map(
+								({ id, first_name, last_name }) => ({
+									name: first_name + ' ' + last_name,
+									value: id,
+								})
+							);
+							return { roleChoices, employeeChoices };
+						})
+						.then(({ roleChoices, employeeChoices }) => {
+							inquirer
+								.prompt([
+									{
+										type: 'list',
+										name: 'employee',
+										message: 'Select an employee to update',
+										choices: employeeChoices, // TODO: add dynamic list of employees
+									},
+									{
+										type: 'list',
+										name: 'role',
+										message: 'Select a role',
+										choices: roleChoices, //TODO: add dynamic list of roles
+									},
+								])
+								.then((response) => {
+									db.updateEmployee(
+										response.role,
+										response.employee
+									);
+									console.log(
+										`successfully updated ${response.employee}`
+									);
+								})
+								.then(() => menu());
+						});
+				});
 			break;
 
 		// * READ roles

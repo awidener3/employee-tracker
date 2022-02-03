@@ -56,14 +56,10 @@ class Query {
 
 	// TODO: roleId and id need to find matching name
 	updateEmployee(roleId, id) {
-		db.query(
-			'UPDATE employee SET role_id=? WHERE id=?',
-			[roleId, id],
-			(err, result) => {
-				if (err) console.log(err);
-				console.log(results);
-			}
-		);
+		this.db
+			.promise()
+			.query('UPDATE employee SET role_id=? WHERE id=?', [roleId, id])
+			.catch((err) => console.log(err));
 	}
 }
 
