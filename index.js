@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const db = require('./db/query.js');
+const figlet = require('figlet');
 
 // menu for selecting application actions
 menu = () => {
@@ -263,4 +264,12 @@ handleMenu = (response) => {
 	}
 };
 
-menu();
+figlet('Employee Tracker', function (err, data) {
+	if (err) {
+		console.log('Something went wrong...');
+		console.dir(err);
+		return;
+	}
+	console.log(data);
+	menu();
+});
