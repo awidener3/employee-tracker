@@ -28,7 +28,13 @@ menu = async () => {
 
     switch (response.choice) {
         case 'View All Employees':
-            console.log('you chose view all employees')
+            db.query(
+                'SELECT a.id, a.first_name, a.last_name, role.title, department.name, CONCAT(b.first_name, \' \', b.last_name) AS manager FROM employee a JOIN role ON a.role_id=role.id JOIN department ON department.id=role.department_id LEFT JOIN employee b ON a.manager_id = b.id', 
+                (err, results) => {
+                    if (err) console.log(err);
+                    console.table(results);
+                    menu()
+                })
             break;
 
         case 'Add Employee':
@@ -40,7 +46,13 @@ menu = async () => {
             break;
 
         case 'View All Roles':
-            console.log('you chose View All Roles')
+            db.query(
+                'SELECT role.id, role.title, department.name AS department, role.salary FROM role INNER JOIN department ON role.department_id=department.id ORDER BY role.id', 
+                (err, results) => {
+                    if (err) console.log(err);
+                    console.table(results);
+                    menu()
+                })
             break;
 
         case 'Add Role':
@@ -56,7 +68,14 @@ menu = async () => {
             break;
 
         case 'Add Department':
-            console.log('you chose Add Department')
+            const data = await inquirer.prompt(
+                {
+                    type: 'input',
+                    name: 'name',
+                    message: 'What is the name of the department?',
+                    validate: (name) => {}
+                }
+            )
             break;
 
         case 'Exit Application':
