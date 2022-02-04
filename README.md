@@ -1,7 +1,7 @@
-# employee-tracker
-This is a homework assignment from the UCF Full-Stack Coding Bootcamp. In this project I am tasked with creating an application that allows you to track a database of employees using MySQL. The application will run in the command line and utilize the Inquirer package.
-
 # 📝 Homework #12: Employee Tracker
+
+## 🎥 Video Walkthrough
+[Video Walkthrough](https://drive.google.com/file/d/1Lh-kdHDTPclcniIsOZhPGkogxoTgTOkP/view?usp=sharing)
 
 ## 🔨 Task
 To create a Content Management System that allows a user to track and edit information on an employee, their roles, departments and managers. This project utilizes Node.js, Inquirer and MySQL.
