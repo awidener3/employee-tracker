@@ -1,7 +1,7 @@
 # 📝 Homework #12: Employee Tracker
 
 ## 🎥 Video Walkthrough
-[Video Walkthrough](https://drive.google.com/file/d/1Lh-kdHDTPclcniIsOZhPGkogxoTgTOkP/view?usp=sharing)
+[Video Walkthrough](https://drive.google.com/file/d/1EEfO2yclob_KriGblet9RN0vxoWqtaPT/view?usp=sharing)
 
 ## 🔨 Task
 To create a Content Management System that allows a user to track and edit information on an employee, their roles, departments and managers. This project utilizes Node.js, Inquirer and MySQL.
