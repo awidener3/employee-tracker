@@ -27,6 +27,7 @@ menu = () => {
 					'Delete Department',
 					'View Utilized Budget of Department',
 					'Exit Application',
+					new inquirer.Separator(),
 				],
 			},
 		])
