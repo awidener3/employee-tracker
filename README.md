@@ -15,7 +15,7 @@ After each route is complete, you will be prompted again if you would like to co
 
 ## 🔍 Preview
 
-
+https://user-images.githubusercontent.com/70721378/152450515-bf4c0348-e558-46f2-938c-bcad3c21fa21.mp4
 
 ## 📷 Screenshots
 Begin the application by called `npm start` in the terminal of the root directory of the application
